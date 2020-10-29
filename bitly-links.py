@@ -1,13 +1,10 @@
 import requests
 import json
 from dotenv import load_dotenv
-
-load_dotenv()
 import os
-import sys
-# у вас в инструкции указана библиотека которая не подтягивается
 from urllib.parse import urlparse
 
+load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
 headers = dict(Authorization='')
