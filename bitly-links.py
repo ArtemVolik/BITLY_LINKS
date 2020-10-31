@@ -49,13 +49,14 @@ def check_is_bitlink(bitly_token, raw_link):
 
 
 def main():
+    load_dotenv()
     bitly_token = os.getenv('BITLY_TOKEN')
     link = input('Введите ссылку')
-    short = check_is_bitlink(bitly_token, link)
+    is_bitlink = check_is_bitlink(bitly_token, link)
     if not validators.url(link):
         print('Ошибка в URL')
         return
-    if short:
+    if is_bitlink:
         total_clicks = count_cliks(bitly_token, link)
         print(f"Всего кликов: {total_clicks}")
         return
@@ -64,6 +65,4 @@ def main():
 
 
 if __name__ == "__main__":
-    load_dotenv()
     main()
-    exit()
