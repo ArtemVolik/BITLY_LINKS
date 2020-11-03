@@ -35,7 +35,7 @@ def count_cliks(bitly_token, raw_link):
 
 def check_is_bitlink(bitly_token, raw_link):
     headers = {'Authorization': f'Bearer {bitly_token}'}
-    _, url_scheme, url_path = urlparse(raw_link)[0:3]
+    url_scheme, url_path = urlparse(raw_link)[1:3]
     url = f'https://api-ssl.bitly.com/v4/bitlinks/{url_scheme}{url_path}'
     response = requests.get(url, headers=headers)
     return response.ok
