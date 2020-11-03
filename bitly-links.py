@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from urllib.parse import urlparse
 import validators
-
+import argparse
 
 BITLY_URL ={
     'shorten': 'https://api-ssl.bitly.com/v4/shorten',
@@ -49,19 +49,27 @@ def check_is_bitlink(bitly_token, raw_link):
 
 
 def main():
+    link = handling_cline()
     load_dotenv()
     bitly_token = os.getenv('BITLY_TOKEN')
-    link = input('Введите ссылку')
     is_bitlink = check_is_bitlink(bitly_token, link)
     if not validators.url(link):
         print('Ошибка в URL')
         return
     if is_bitlink:
         total_clicks = count_cliks(bitly_token, link)
-        print(f"Всего кликов: {total_clicks}")
+        print(f"Количество переходов по ссылке битли: {total_clicks}")
         return
     bitlink = shorten_link(bitly_token, link)
     print(f'Короткая ссылка: {str(bitlink)}')
+
+
+def handling_cline():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('link', help='Enter your link here')
+    args = parser.parse_args()
+    return args.link
+
 
 
 if __name__ == "__main__":
